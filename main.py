@@ -25,6 +25,7 @@ while True:
         break
 
 webcam.release()  # to close video and it's capturing device
+cv2.destroyAllWindows()
 
 
 # mark = face_recognition.load_image_file("images/elon.jpg")
