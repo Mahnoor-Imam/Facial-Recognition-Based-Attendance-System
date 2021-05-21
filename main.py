@@ -9,15 +9,17 @@ webcam = cv2.VideoCapture(0)  # getting video frames from webcam
 while True:
     cam, img = webcam.read()  # returns flag to indicate correct frame read and the frame itself
 
+    img = cv2.flip(img, 1)  # flip around y-axis to get mirror image
+
     imgS = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  # converting to grayscale image
 
     faces = face_detect.detectMultiScale(imgS, 1.1, 4)  # scale factor set to 1.1 and minimum neighbours to 4
 
-    for (x1, y1, x2, y2) in faces:
-        cv2.rectangle(img, (x1, y1), (x1 + x2, y1 + y2), (0, 255, 0), 2)  # BGR color used to draw rectangle around
-        # detected face
+    for (x1, y1, w, h) in faces:
+        cv2.rectangle(img, (x1, y1), (x1 + w, y1 + h), (0, 255, 0), 2)  # BGR color used to draw rectangle around detected face
 
     cv2.imshow("webcam", img)  # show the image
+
     key = cv2.waitKey(30)  # wait for key press to close screen
     if key == 27:  # ESC key to exit
         break
